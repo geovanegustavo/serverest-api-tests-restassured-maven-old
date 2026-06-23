@@ -23,7 +23,7 @@ jobs:
           distribution: 'temurin'
           cache: maven
 
-      # Rodar testes com TestNG suite (já configurado no Surefire para usar testng.xml)
+      # Rodar testes com TestNG suite (Surefire já configurado para usar testng.xml)
       - name: Run tests with TestNG suite
         run: mvn -B clean test
 
@@ -47,10 +47,18 @@ jobs:
       - name: Generate Allure report
         run: mvn allure:report
 
-      # Upload do relatório Allure em HTML
+      # Upload do relatório Allure em HTML como artefato
       - name: Upload Allure HTML report
         uses: actions/upload-artifact@v4
         if: always()
         with:
           name: allure-report
           path: target/site/allure-maven-plugin
+
+      # Publicar relatório Allure no GitHub Pages
+      - name: Deploy Allure report to GitHub Pages
+        if: always()
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: target/site/allure-maven-plugin
