@@ -9,6 +9,9 @@ public class Mensagens {
 
     // LOGIN
     public static final String MSG_LOGIN_SUCESSO = "Login realizado com sucesso";
+    public static final String MSG_LOGIN_ERRADO = "Email e/ou senha inválidos";
+    public static final String MSG_LOGIN_SEM_EMAIL = "email não pode ficar em branco";
+    public static final String MSG_LOGIN_SEM_SENHA = "password não pode ficar em branco";
 
     // PRODUTO
     public static final String MSG_PRODUTO_EXISTENTE = "Já existe produto com esse nome";

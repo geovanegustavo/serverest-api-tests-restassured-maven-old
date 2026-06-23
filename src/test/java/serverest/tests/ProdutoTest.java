@@ -22,7 +22,7 @@ public class ProdutoTest {
 
     @Test(
             priority = 1,
-            testName = "Deve cadastrar um produto aleatório na base de dados"
+            description = "Deve cadastrar um produto aleatório na base de dados"
     )
     public void cadastrarProduto() {
         produtoId = given()
@@ -44,7 +44,7 @@ public class ProdutoTest {
 
     @Test(
             priority = 2,
-            testName = "NÃO deve cadastrar um produto já existente na base de dados",
+            description = "NÃO deve cadastrar um produto já existente na base de dados",
             dependsOnMethods = "cadastrarProduto"
     )
     public void cadastrarProdutoExistente() {
@@ -65,7 +65,7 @@ public class ProdutoTest {
 
     @Test(
             priority = 3,
-            testName = "Deve listar o produto cadastrado pelo id",
+            description = "Deve listar o produto cadastrado pelo id",
             dependsOnMethods = "cadastrarProduto"
     )
     public void listarProdutoPorId() {
@@ -88,7 +88,7 @@ public class ProdutoTest {
 
     @Test(
             priority = 4,
-            testName = "Deve pesquisar produto cadastrado pelo nome",
+            description = "Deve pesquisar produto cadastrado pelo nome",
             dependsOnMethods = "cadastrarProduto"
     )
     public void pesquisarProdutoPorNome() {
@@ -112,7 +112,7 @@ public class ProdutoTest {
 
     @Test(
             priority = 5,
-            testName = "Deve editar o produto já cadastrado",
+            description = "Deve editar o produto já cadastrado",
             dependsOnMethods = "listarProdutoPorId"
     )
     public void editarProduto() {
@@ -141,7 +141,7 @@ public class ProdutoTest {
 
     @Test(
             priority = 6,
-            testName = "Deve excluir o produto cadastrado pelo id",
+            description = "Deve excluir o produto cadastrado pelo id",
             dependsOnMethods = "editarProduto"
     )
     public void excluirProduto() {
@@ -164,27 +164,26 @@ public class ProdutoTest {
 
     @Test(
             priority = 7,
-            testName = "NÃO deve encontrar produto já excluído",
+            description = "NÃO deve encontrar produto já excluído",
             dependsOnMethods = "excluirProduto"
-
     )
     public void listarProdutoExcluido() {
         given()
-                .header("Authorization", "Bearer " + TokenHolder.token)
-                .pathParam("id", produtoId)
-                .log().all()
-                .when()
-                .get("/produtos/{id}")
-                .then()
-                .log().all()
-                .statusCode(400)
-                .body("message", equalTo(MSG_PRODUTO_NAO_ENCONTRADO))
-                .body(matchesJsonSchemaInClasspath("schemas/produto/listar-produto-excluido-schema.json"));
+            .header("Authorization", "Bearer " + TokenHolder.token)
+            .pathParam("id", produtoId)
+            .log().all()
+        .when()
+            .get("/produtos/{id}")
+        .then()
+            .log().all()
+            .statusCode(400)
+            .body("message", equalTo(MSG_PRODUTO_NAO_ENCONTRADO))
+            .body(matchesJsonSchemaInClasspath("schemas/produto/listar-produto-excluido-schema.json"));
     }
 
     @Test(
             priority = 8,
-            testName = "NÃO deve cadastrar um produto sem token de autenticação",
+            description = "NÃO deve cadastrar um produto sem token de autenticação",
             dependsOnMethods = "cadastrarProduto"
     )
     public void cadastrarProdutoSemToken() {
