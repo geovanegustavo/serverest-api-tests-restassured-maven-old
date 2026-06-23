@@ -6,7 +6,7 @@
             <!-- Prioridade de execução dos testes -->
             <class name="serverest.tests.UsuarioTest"/>
             <class name="serverest.tests.LoginTest"/>
-            <!-- <class name="serverest.tests.ProdutoTest"/> -->
+            <class name="serverest.tests.ProdutoTest"/>
         </classes>
     </test>
 </suite>

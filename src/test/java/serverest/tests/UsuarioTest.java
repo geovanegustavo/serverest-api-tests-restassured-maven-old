@@ -30,7 +30,10 @@ public class UsuarioTest {
     Usuario usuarioCriado = new Usuario("Admin QA", email, senha, "true");
     Usuario usuarioComumCriado = new Usuario("Usuario QA",  emailComum, senha, "false");
 
-    @Test(description = "Deve cadastrar um usuário Administrador com credenciais válidas")
+    @Test(
+            priority = 1,
+            testName = "Deve cadastrar um usuário Administrador com credenciais válidas"
+    )
     public void cadastrarUsuarioAdmin() {
         usuarioId = given()
             .contentType("application/json")
@@ -51,7 +54,10 @@ public class UsuarioTest {
         TokenHolder.password = senha;
     }
 
-    @Test(description = "Deve cadastrar um usuário comum com credenciais válidas")
+    @Test(
+            priority = 2,
+            testName = "Deve cadastrar um usuário comum com credenciais válidas"
+    )
     public void cadastrarUsuarioComum() {
         usuarioComumId = given()
             .contentType("application/json")
@@ -70,7 +76,8 @@ public class UsuarioTest {
     }
 
     @Test(
-            description = "Deve listar o usuário cadastrado pelo id",
+            priority = 3,
+            testName = "Deve listar o usuário cadastrado pelo id",
             dependsOnMethods = "cadastrarUsuarioAdmin"
     )
     public void listarUsuarioPorId() {
@@ -91,7 +98,8 @@ public class UsuarioTest {
     }
 
     @Test(
-            description = "Deve pesquisar usuario cadastrado pelo nome",
+            priority = 4,
+            testName = "Deve pesquisar usuario cadastrado pelo nome",
             dependsOnMethods = "cadastrarUsuarioAdmin"
     )
     public void pesquisarUsuarioPorNome() {
@@ -112,7 +120,8 @@ public class UsuarioTest {
     }
 
     @Test(
-            description = "Deve editar o usuário já cadastrado",
+            priority = 5,
+            testName = "Deve editar o usuário já cadastrado",
             dependsOnMethods = "cadastrarUsuarioComum"
     )
     public void editarUsuario() {
@@ -139,7 +148,8 @@ public class UsuarioTest {
     }
 
     @Test(
-            description = "Deve excluir o usuário cadastrado pelo id",
+            priority = 6,
+            testName = "Deve excluir o usuário cadastrado pelo id",
             dependsOnMethods = "editarUsuarioInexistente"
     )
     public void excluirUsuario() {
@@ -159,7 +169,10 @@ public class UsuarioTest {
      * CENÁRIOS DE EXCEÇÃO
      */
 
-    @Test(description = "Deve cadastrar o usuário inexistente")
+    @Test(
+            priority = 7,
+            testName = "Deve cadastrar o usuário inexistente"
+    )
     public void editarUsuarioInexistente() {
         // cria um novo objeto com dados novos
         String nomeUsuarioInexistente = UsuarioHelper.gerarUsuario();

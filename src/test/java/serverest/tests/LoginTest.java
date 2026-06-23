@@ -17,7 +17,7 @@ public class LoginTest {
     }
 
     @Test(
-            description = "Deve logar usuário administrador com credenciais válidas",
+            testName = "Deve logar usuário administrador com credenciais válidas",
             dependsOnMethods = "cadastrarUsuarioAdmin"
     )
     public void realizarLoginUsuarioAdmin() {
