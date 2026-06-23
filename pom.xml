@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.serverest</groupId>
-    <artifactId>serverest-api-tests-restassured-maven-allure</artifactId>
+    <artifactId>serverest-api-tests-restassured-maven</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <properties>
