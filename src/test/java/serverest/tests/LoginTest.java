@@ -19,7 +19,8 @@ public class LoginTest {
     @Test(
             priority = 1,
             description = "Deve logar usuário administrador com credenciais válidas",
-            dependsOnMethods = "cadastrarUsuarioAdmin"
+            dependsOnMethods = "cadastrarUsuarioAdmin",
+            groups = {"login", "sucesso"}
     )
     public void realizarLoginUsuarioAdmin() {
         String body = "{ \"email\": \"" + TokenHolder.email + "\", \"password\": \"" + TokenHolder.password + "\" }";
@@ -43,7 +44,8 @@ public class LoginTest {
     @Test(
             priority = 2,
             description = "NÃO deve logar usuário com credenciais inválidas",
-            dependsOnMethods = "cadastrarUsuarioAdmin"
+            dependsOnMethods = "cadastrarUsuarioAdmin",
+            groups = {"login", "exceção"}
     )
     public void realizarLoginInvalido() {
         String body = "{ \"email\": \"email@invalido.com\", \"password\": \"1234\" }";
@@ -64,7 +66,8 @@ public class LoginTest {
     @Test(
             priority = 3,
             description = "NÃO deve logar usuário sem e-mail",
-            dependsOnMethods = "cadastrarUsuarioAdmin"
+            dependsOnMethods = "cadastrarUsuarioAdmin",
+            groups = {"login", "exceção"}
     )
     public void realizarLoginSemEmail() {
         String body = "{ \"email\": \"\", \"password\": \"1234\" }";
@@ -85,7 +88,8 @@ public class LoginTest {
     @Test(
             priority = 4,
             description = "NÃO deve logar usuário sem senha",
-            dependsOnMethods = "cadastrarUsuarioAdmin"
+            dependsOnMethods = "cadastrarUsuarioAdmin",
+            groups = {"login", "exceção"}
     )
     public void realizarLoginSemSenha() {
         String body = "{ \"email\": \"email@invalido.com\", \"password\": \"\" }";
@@ -106,7 +110,8 @@ public class LoginTest {
     @Test(
             priority = 4,
             description = "NÃO deve logar usuário sem senha",
-            dependsOnMethods = "cadastrarUsuarioAdmin"
+            dependsOnMethods = "cadastrarUsuarioAdmin",
+            groups = {"login", "exceção"}
     )
     public void realizarLoginSemEmailSenha() {
         String body = "{ \"email\": \"\", \"password\": \"\" }";

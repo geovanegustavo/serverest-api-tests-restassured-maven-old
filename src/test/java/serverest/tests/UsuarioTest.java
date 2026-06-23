@@ -32,7 +32,8 @@ public class UsuarioTest {
 
     @Test(
             priority = 1,
-            description = "Deve cadastrar um usuário Administrador com credenciais válidas"
+            description = "Deve cadastrar um usuário Administrador com credenciais válidas",
+            groups = {"usuario", "sucesso"}
     )
     public void cadastrarUsuarioAdmin() {
         usuarioId = given()
@@ -56,7 +57,8 @@ public class UsuarioTest {
 
     @Test(
             priority = 2,
-            description = "Deve cadastrar um usuário comum com credenciais válidas"
+            description = "Deve cadastrar um usuário comum com credenciais válidas",
+            groups = {"usuario", "sucesso"}
     )
     public void cadastrarUsuarioComum() {
         usuarioComumId = given()
@@ -77,8 +79,28 @@ public class UsuarioTest {
 
     @Test(
             priority = 3,
+            description = "NÃO deve cadastrar um usuário com email duplicado",
+            groups = {"usuario", "exceção"}
+    )
+    public void cadastrarUsuarioEmailDuplicado() {
+        given()
+            .contentType("application/json")
+            .log().all()
+            .body(usuarioComumCriado)
+        .when()
+            .post("/usuarios")
+        .then()
+            .log().all()
+            .statusCode(400)
+            .body("message", equalTo(MSG_USUARIO_EMAIL_DUPLICADO))
+            .body(matchesJsonSchemaInClasspath("schemas/usuario/cadastrar-usuario-email-duplicado-schema.json"));
+    }
+
+    @Test(
+            priority = 4,
             description = "Deve listar o usuário cadastrado pelo id",
-            dependsOnMethods = "cadastrarUsuarioAdmin"
+            dependsOnMethods = "cadastrarUsuarioAdmin",
+            groups = {"usuario", "sucesso"}
     )
     public void listarUsuarioPorId() {
         given()
@@ -98,9 +120,10 @@ public class UsuarioTest {
     }
 
     @Test(
-            priority = 4,
+            priority = 5,
             description = "Deve pesquisar usuario cadastrado pelo nome",
-            dependsOnMethods = "cadastrarUsuarioAdmin"
+            dependsOnMethods = "cadastrarUsuarioAdmin",
+            groups = {"usuario", "sucesso"}
     )
     public void pesquisarUsuarioPorNome() {
         given()
@@ -120,9 +143,10 @@ public class UsuarioTest {
     }
 
     @Test(
-            priority = 5,
+            priority = 6,
             description = "Deve editar o usuário já cadastrado",
-            dependsOnMethods = "cadastrarUsuarioComum"
+            dependsOnMethods = "cadastrarUsuarioComum",
+            groups = {"usuario", "sucesso"}
     )
     public void editarUsuario() {
         // cria um novo objeto com dados atualizados
@@ -148,9 +172,10 @@ public class UsuarioTest {
     }
 
     @Test(
-            priority = 6,
+            priority = 7,
             description = "Deve excluir o usuário cadastrado pelo id",
-            dependsOnMethods = "editarUsuarioInexistente"
+            dependsOnMethods = "editarUsuarioInexistente",
+            groups = {"usuario", "sucesso"}
     )
     public void excluirUsuario() {
         given()
@@ -165,13 +190,10 @@ public class UsuarioTest {
             .body(matchesJsonSchemaInClasspath("schemas/usuario/excluir-usuario-schema.json"));
     }
 
-    /**
-     * CENÁRIOS DE EXCEÇÃO
-     */
-
     @Test(
-            priority = 7,
-            description = "Deve cadastrar o usuário inexistente"
+            priority = 8,
+            description = "Deve cadastrar o usuário inexistente",
+            groups = {"usuario", "exceção"}
     )
     public void editarUsuarioInexistente() {
         // cria um novo objeto com dados novos

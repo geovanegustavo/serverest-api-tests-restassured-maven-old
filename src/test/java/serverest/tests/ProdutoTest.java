@@ -22,7 +22,8 @@ public class ProdutoTest {
 
     @Test(
             priority = 1,
-            description = "Deve cadastrar um produto aleatório na base de dados"
+            description = "Deve cadastrar um produto aleatório na base de dados",
+            groups = {"produto", "sucesso"}
     )
     public void cadastrarProduto() {
         produtoId = given()
@@ -45,7 +46,8 @@ public class ProdutoTest {
     @Test(
             priority = 2,
             description = "NÃO deve cadastrar um produto já existente na base de dados",
-            dependsOnMethods = "cadastrarProduto"
+            dependsOnMethods = "cadastrarProduto",
+            groups = {"produto", "exceção"}
     )
     public void cadastrarProdutoExistente() {
         given()
@@ -66,7 +68,8 @@ public class ProdutoTest {
     @Test(
             priority = 3,
             description = "Deve listar o produto cadastrado pelo id",
-            dependsOnMethods = "cadastrarProduto"
+            dependsOnMethods = "cadastrarProduto",
+            groups = {"produto", "sucesso"}
     )
     public void listarProdutoPorId() {
         given()
@@ -89,7 +92,8 @@ public class ProdutoTest {
     @Test(
             priority = 4,
             description = "Deve pesquisar produto cadastrado pelo nome",
-            dependsOnMethods = "cadastrarProduto"
+            dependsOnMethods = "cadastrarProduto",
+            groups = {"produto", "sucesso"}
     )
     public void pesquisarProdutoPorNome() {
         given()
@@ -113,7 +117,8 @@ public class ProdutoTest {
     @Test(
             priority = 5,
             description = "Deve editar o produto já cadastrado",
-            dependsOnMethods = "listarProdutoPorId"
+            dependsOnMethods = "listarProdutoPorId",
+            groups = {"produto", "sucesso"}
     )
     public void editarProduto() {
         // cria um novo objeto com dados atualizados
@@ -142,7 +147,8 @@ public class ProdutoTest {
     @Test(
             priority = 6,
             description = "Deve excluir o produto cadastrado pelo id",
-            dependsOnMethods = "editarProduto"
+            dependsOnMethods = "editarProduto",
+            groups = {"produto", "sucesso"}
     )
     public void excluirProduto() {
         given()
@@ -165,7 +171,8 @@ public class ProdutoTest {
     @Test(
             priority = 7,
             description = "NÃO deve encontrar produto já excluído",
-            dependsOnMethods = "excluirProduto"
+            dependsOnMethods = "excluirProduto",
+            groups = {"produto", "exceção"}
     )
     public void listarProdutoExcluido() {
         given()
@@ -184,7 +191,8 @@ public class ProdutoTest {
     @Test(
             priority = 8,
             description = "NÃO deve cadastrar um produto sem token de autenticação",
-            dependsOnMethods = "cadastrarProduto"
+            dependsOnMethods = "cadastrarProduto",
+            groups = {"produto", "exceção"}
     )
     public void cadastrarProdutoSemToken() {
         given()

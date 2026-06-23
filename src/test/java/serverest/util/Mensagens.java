@@ -13,6 +13,9 @@ public class Mensagens {
     public static final String MSG_LOGIN_SEM_EMAIL = "email não pode ficar em branco";
     public static final String MSG_LOGIN_SEM_SENHA = "password não pode ficar em branco";
 
+    // USUÁRIO
+    public static final String MSG_USUARIO_EMAIL_DUPLICADO = "Este email já está sendo usado";
+
     // PRODUTO
     public static final String MSG_PRODUTO_EXISTENTE = "Já existe produto com esse nome";
     public static final String MSG_PRODUTO_NAO_ENCONTRADO = "Produto não encontrado";
