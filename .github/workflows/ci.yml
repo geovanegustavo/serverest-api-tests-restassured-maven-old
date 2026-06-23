@@ -23,9 +23,9 @@ jobs:
           distribution: 'temurin'
           cache: maven
 
-      # Build e testes com Maven
-      - name: Run tests
-        run: mvn -B clean test
+      # Rodar testes pelo testng.xml
+      - name: Run tests with TestNG suite
+        run: mvn -B clean test -DsuiteXmlFile=src/test/resources/testng.xml
 
       # Upload dos relatórios de teste como artefato
       - name: Upload test reports
