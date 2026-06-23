@@ -2,7 +2,7 @@ package serverest.tests;
 
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
-import org.junit.jupiter.api.Test;
+import org.testng.annotations.Test;
 import serverest.util.TokenHolder;
 
 import static io.restassured.RestAssured.given;
@@ -16,7 +16,7 @@ public class LoginTest {
         RestAssured.baseURI = "https://serverest.dev";
     }
 
-    @Test()
+    @Test(dependsOnMethods = "cadastrarUsuarioAdmin")
     public void realizarLoginAdmin() {
         String body = "{ \"email\": \"" + TokenHolder.email + "\", \"password\": \"" + TokenHolder.password + "\" }";
 

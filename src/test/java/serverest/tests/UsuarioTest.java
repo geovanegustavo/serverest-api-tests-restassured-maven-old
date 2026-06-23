@@ -1,7 +1,7 @@
 package serverest.tests;
 
 import io.restassured.RestAssured;
-import org.junit.jupiter.api.Test;
+import org.testng.annotations.Test;
 import serverest.model.Usuario;
 import serverest.util.TokenHolder;
 import serverest.util.UsuarioHelper;
