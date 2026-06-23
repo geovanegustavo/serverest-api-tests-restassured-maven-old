@@ -1,10 +1,21 @@
+name: CI - Serverest API Tests
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
+      # Checkout do código
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      # Configurar JDK 17 com cache de Maven
       - name: Set up JDK 17
         uses: actions/setup-java@v4
         with:
@@ -12,13 +23,32 @@ jobs:
           distribution: 'temurin'
           cache: maven
 
+      # Rodar testes com TestNG suite (já configurado no Surefire para usar testng.xml)
       - name: Run tests with TestNG suite
         run: mvn -B clean test
 
+      # Upload dos relatórios padrão do Surefire
+      - name: Upload Surefire reports
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: surefire-reports
+          path: target/surefire-reports
+
+      # Upload dos resultados brutos do Allure
+      - name: Upload Allure results
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: allure-results
+          path: target/allure-results
+
+      # Gerar relatório Allure em HTML
       - name: Generate Allure report
         run: mvn allure:report
 
-      - name: Upload Allure report
+      # Upload do relatório Allure em HTML
+      - name: Upload Allure HTML report
         uses: actions/upload-artifact@v4
         if: always()
         with:
